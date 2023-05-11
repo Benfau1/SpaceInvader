@@ -5,7 +5,7 @@
 //Player params
 #pragma region aliensParams
 const int GRILLE_TAILLE_X = 6;
-const int GRILLE_TAILLE_Y = 4;
+const int GRILLE_TAILLE_Y = 3;
 int aliens[GRILLE_TAILLE_X][GRILLE_TAILLE_Y];
 int alienPositionsX[GRILLE_TAILLE_X][GRILLE_TAILLE_Y];
 int alienPositionsY[GRILLE_TAILLE_X][GRILLE_TAILLE_Y];
@@ -49,16 +49,16 @@ void loop() {
 
 #pragma region spaceInvaders
 void startGame() {
-  for (int ligne = 0; ligne < GRILLE_TAILLE_Y; ligne += 1) {
+   for (int ligne = 0; ligne < GRILLE_TAILLE_Y; ligne += 1) {
     for (int colonne = 0; colonne < GRILLE_TAILLE_X; colonne += 1) {
-      aliens[ligne][colonne] = 1;
-      alienPositionsX[ligne][colonne] = colonne * (ALIEN_TAILLE + 2);
-      alienPositionsY[ligne][colonne] = ligne * ALIEN_TAILLE;
+      aliens[colonne][ligne] = 1;
+      alienPositionsX[colonne][ligne] = colonne * (ALIEN_TAILLE + 2);
+      alienPositionsY[colonne][ligne] = ligne * ALIEN_TAILLE;
     }
   }
 }
 
-void checkAlienCollider(){
+/*void checkAlienCollider(){
   for (int ligne = GRILLE_TAILLE_Y; ligne >= 0; ligne--) {
     for (int colonne = 0; colonne < GRILLE_TAILLE_X; colonne += 1) {
       int alienX = colonne * (ALIEN_TAILLE + 2) + 1;
@@ -68,23 +68,24 @@ void checkAlienCollider(){
         continue;
       }
       //Collision
-      /*else if(){
+      else if(){
         aliens[ligne][colonne] = 0;
         break;
-      }*/
+      }
     }
   }
-}
+}*/
 
 void renderer(){
   //Aliens
   for (int ligne = 0; ligne < GRILLE_TAILLE_Y; ligne += 1) {
     for (int colonne = 0; colonne < GRILLE_TAILLE_X; colonne += 1) {
-      if (aliens[ligne][colonne] == 0) {
+      if (aliens[colonne][ligne] == 0) {
         continue;
       }
-      alienPositionsX[ligne][colonne] += alienSpeed;
-      gb.display.drawImage(alienPositionsX[ligne][colonne], alienPositionsY[ligne][colonne], alienImg);
+
+      alienPositionsX[colonne][ligne] += alienSpeed;
+      gb.display.drawImage(alienPositionsX[colonne][ligne], alienPositionsY[colonne][ligne], alienImg);
     }
   }
 }
