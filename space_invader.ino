@@ -6,11 +6,12 @@
 #pragma region aliensParams
 const int GRILLE_TAILLE_X = 6;
 const int GRILLE_TAILLE_Y = 3;
-int aliens[GRILLE_TAILLE_X][GRILLE_TAILLE_Y];
-int alienPositionsX[GRILLE_TAILLE_X][GRILLE_TAILLE_Y];
-int alienPositionsY[GRILLE_TAILLE_X][GRILLE_TAILLE_Y];
 const int ALIEN_TAILLE = 10;
-const int alienSpeed = 1;
+int aliens[GRILLE_TAILLE_X][GRILLE_TAILLE_Y];
+float alienPositionsX[GRILLE_TAILLE_X][GRILLE_TAILLE_Y];
+float alienPositionsY[GRILLE_TAILLE_X][GRILLE_TAILLE_Y];
+float alienSpeedX = 0.1;
+float alienSpeedY = 0;
 #pragma endregion
 
 #pragma endregion
@@ -84,9 +85,22 @@ void renderer(){
         continue;
       }
 
-      alienPositionsX[colonne][ligne] += alienSpeed;
+      alienPositionsX[colonne][ligne] += alienSpeedX;
+      alienPositionsY[colonne][ligne] += alienSpeedY;
       gb.display.drawImage(alienPositionsX[colonne][ligne], alienPositionsY[colonne][ligne], alienImg);
     }
+  }
+
+  if(alienPositionsX[GRILLE_TAILLE_X-1][GRILLE_TAILLE_Y-1] + ALIEN_TAILLE >= gb.display.width()){
+    alienSpeedY = 1;
+    alienSpeedX = -alienSpeedX;
+  }
+  else if(alienPositionsX[0][GRILLE_TAILLE_Y-1] <= 0){
+    alienSpeedY = 1;
+    alienSpeedX = abs(alienSpeedX);
+  }
+  else{
+    alienSpeedY = 0;
   }
 }
 #pragma endregion
