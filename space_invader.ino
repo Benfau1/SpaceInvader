@@ -19,7 +19,7 @@ void loop() {
 
 #pragma region spaceInvaders
 void startGame() {
-   initAliens();
+  initAliens();
 }
 
 void renderer(){
