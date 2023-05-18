@@ -23,7 +23,7 @@ int bullets_y[NUMBULLETS];
 int bullet_width = 1;
 int bullet_height = 3;
 const float bullets_vy = 2.5;
-boolean bullets_active[NUMBULLETS];
+bool bullets_active[NUMBULLETS];
 short last_invader_shoot = -1;
 int bulletN = 0;
 
@@ -35,7 +35,7 @@ int rect_y=32;
 int rect_width=5;
 int rect_height=2;
 
-void shuttleLogic(){
+void drawShuttle(){
     // When moving shuttle should change direction
   if (gb.buttons.repeat(BUTTON_RIGHT, 0) && move_x < gb.display.width() - rightStop )
   {

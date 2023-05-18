@@ -1,19 +1,30 @@
 #include <Gamebuino-Meta.h>
 
-void setup()
-{
+#pragma region params
+
+//Player params
+
+
+#pragma endregion
+void setup() {
+  startGame();
   gb.begin();
 }
 
-void loop()
-{
-  while (!gb.update())
-    ;
+void loop() {
+  while (!gb.update());
   gb.display.clear();
-
-  shuttleLogic();
-  drawHealthLevel();
+  renderer();
 }
 
+#pragma region spaceInvaders
+void startGame() {
+   initAliens();
+}
 
-
+void renderer(){
+  drawShuttle();
+  drawAliens();
+  drawHealthLevel();
+}
+#pragma endregion
