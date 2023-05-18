@@ -4,37 +4,47 @@
 
 //Player params
 #pragma region aliensParams
-const int GRILLE_TAILLE_X = 6;
-const int GRILLE_TAILLE_Y = 3;
-const int ALIEN_TAILLE = 10;
+const int GRILLE_TAILLE_X = 8;
+const int GRILLE_TAILLE_Y = 4;
+const int ALIEN_TAILLE_X = 6;
+const int ALIEN_TAILLE_Y = 7;
 int aliens[GRILLE_TAILLE_X][GRILLE_TAILLE_Y];
 float alienPositionsX[GRILLE_TAILLE_X][GRILLE_TAILLE_Y];
 float alienPositionsY[GRILLE_TAILLE_X][GRILLE_TAILLE_Y];
-float alienSpeedX = 0.1;
+float alienSpeedX = 1;
 float alienSpeedY = 0;
 #pragma endregion
 
 #pragma endregion
 const uint16_t ALIEN_IMAGE[] = {
+
     // metadata
-    10,     // frame width
-    10,     // frame height
-    1,      // frames
-    0,      // frame loop
+
+    6,      // frame width
+    6,      // frame height
+    2,      // frames
+    10,      // frame loop
     0xf81f, // transparent color
     0,      // 16-bits color mode
 
     // colormap
-    0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f,
-    0xf81f, 0xf81f, 0x4783, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0x4783, 0xf81f, 0xf81f,
-    0xf81f, 0xf81f, 0xf81f, 0x4783, 0xf81f, 0xf81f, 0x4783, 0xf81f, 0xf81f, 0xf81f,
-    0xf81f, 0xf81f, 0x4783, 0x4783, 0x4783, 0x4783, 0x4783, 0x4783, 0xf81f, 0xf81f,
-    0xf81f, 0x4783, 0x4783, 0xf81f, 0x4783, 0x4783, 0xf81f, 0x4783, 0x4783, 0xf81f,
-    0x4783, 0x4783, 0x4783, 0x4783, 0x4783, 0x4783, 0x4783, 0x4783, 0x4783, 0x4783,
-    0x4783, 0xf81f, 0x4783, 0x4783, 0x4783, 0x4783, 0x4783, 0x4783, 0xf81f, 0x4783,
-    0x4783, 0xf81f, 0x4783, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0x4783, 0xf81f, 0x4783,
-    0xf81f, 0xf81f, 0xf81f, 0x4783, 0xf81f, 0xf81f, 0x4783, 0xf81f, 0xf81f, 0xf81f,
-    0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f
+
+    // frame 1/2
+    0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f,
+    0x2589, 0x2589, 0xf81f, 0xf81f, 0x2589, 0x2589,
+    0xf81f, 0x4783, 0x4783, 0x4783, 0x4783, 0xf81f,
+    0x4783, 0xf81f, 0x4783, 0x4783, 0xf81f, 0x4783,
+    0x4783, 0x4783, 0x4783, 0x4783, 0x4783, 0x4783,
+    0xf81f, 0x4783, 0x4783, 0x4783, 0x4783, 0xf81f,
+
+    // frame 2/2
+    0x2589, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0x2589,
+    0xf81f, 0x2589, 0xf81f, 0xf81f, 0x2589, 0xf81f,
+    0xf81f, 0x4783, 0x4783, 0x4783, 0x4783, 0xf81f,
+    0x4783, 0xf81f, 0x4783, 0x4783, 0xf81f, 0x4783,
+    0x4783, 0x4783, 0x4783, 0x4783, 0x4783, 0x4783,
+    0xf81f, 0x4783, 0xf81f, 0xf81f, 0x4783, 0xf81f
+
 };
 Image alienImg(ALIEN_IMAGE);
 void setup() {
@@ -53,8 +63,8 @@ void startGame() {
    for (int ligne = 0; ligne < GRILLE_TAILLE_Y; ligne += 1) {
     for (int colonne = 0; colonne < GRILLE_TAILLE_X; colonne += 1) {
       aliens[colonne][ligne] = 1;
-      alienPositionsX[colonne][ligne] = colonne * (ALIEN_TAILLE + 2);
-      alienPositionsY[colonne][ligne] = ligne * ALIEN_TAILLE;
+      alienPositionsX[colonne][ligne] = colonne * (ALIEN_TAILLE_X + 2);
+      alienPositionsY[colonne][ligne] = ligne * ALIEN_TAILLE_Y;
     }
   }
 }
@@ -91,12 +101,12 @@ void renderer(){
     }
   }
 
-  if(alienPositionsX[GRILLE_TAILLE_X-1][GRILLE_TAILLE_Y-1] + ALIEN_TAILLE >= gb.display.width()){
-    alienSpeedY = 1;
+  if(alienPositionsX[GRILLE_TAILLE_X-1][GRILLE_TAILLE_Y-1] + ALIEN_TAILLE_X >= gb.display.width()){
+    alienSpeedY = 0.2;
     alienSpeedX = -alienSpeedX;
   }
   else if(alienPositionsX[0][GRILLE_TAILLE_Y-1] <= 0){
-    alienSpeedY = 1;
+    alienSpeedY = 0.2;
     alienSpeedX = abs(alienSpeedX);
   }
   else{
