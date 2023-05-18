@@ -20,6 +20,6 @@
 .history
 .ionide
 
-# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
+*.bin
 
-space_invader.ino.gamebuino_meta.bin
+# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
