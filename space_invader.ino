@@ -1,9 +1,19 @@
-void setup() {
-  // put your setup code here, to run once:
+#include <Gamebuino-Meta.h>
 
+void setup()
+{
+  gb.begin();
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void loop()
+{
+  while (!gb.update())
+    ;
+  gb.display.clear();
 
+  shuttleLogic();
+  drawHealthLevel();
 }
+
+
+
