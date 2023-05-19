@@ -16,7 +16,7 @@ int alienBulletPositionX;
 int alienBulletPositionY;
 const int alienBulletSizeX = 1;
 const int alienBulletSizeY = 3;
-bool isShooting;
+bool isAlienShooting;
 int alienBulletSpeed = 1;
 Image alienImg(ALIEN_IMAGE);
 #pragma endregion
@@ -35,6 +35,8 @@ void drawAliens(){
   for (int ligne = 0; ligne < GRILLE_TAILLE_Y; ligne += 1) {
     for (int colonne = 0; colonne < GRILLE_TAILLE_X; colonne += 1) {
       if (aliens[colonne][ligne] == 0) {
+        alienPositionsX[colonne][ligne] += alienSpeedX;
+        alienPositionsY[colonne][ligne] += alienSpeedY;
         continue;
       }
 
@@ -61,11 +63,11 @@ void drawAliens(){
   }
   else{
     shootCurrentTimer = 0;
-    isShooting = false;
+    isAlienShooting = false;
     alienShoot();
   }
 
-  if(isShooting){
+  if(isAlienShooting){
 
     alienBulletPositionY += alienBulletSpeed;
     gb.display.fillRect(alienBulletPositionX, alienBulletPositionY, alienBulletSizeX, alienBulletSizeY);
@@ -77,16 +79,33 @@ void drawAliens(){
     
     if(gb.collide.rectRect(alienBulletPositionX, alienBulletPositionY,alienBulletSizeX,alienBulletSizeY,
       playerPos_X, playerPos_Y, playerSize_X, playerSize_Y)){
-        isShooting = false;
+        isAlienShooting = false;
         removeLife();
     } 
   }
 }
 
 void alienShoot(){
-  isShooting = true;
+  isAlienShooting = true;
   alienBulletPositionX = alienPositionsX[rand()%(GRILLE_TAILLE_X-1)][GRILLE_TAILLE_Y-1];
   alienBulletPositionY = alienPositionsY[rand()%(GRILLE_TAILLE_X-1)][GRILLE_TAILLE_Y-1] + ALIEN_TAILLE_Y;
 
   gb.display.fillRect(alienBulletPositionX, alienBulletPositionY, alienBulletSizeX, alienBulletSizeY);
+}
+
+bool checkAlienCollision(int bulletXPos,int bulletYPos,int bulletW,int bulletH){
+  for (int ligne = 0; ligne < GRILLE_TAILLE_Y; ligne += 1) {
+    for (int colonne = 0; colonne < GRILLE_TAILLE_X; colonne += 1) {
+      if (aliens[colonne][ligne] == 0) {
+        continue;
+      }
+
+      if (gb.collide.rectRect(bulletXPos,bulletYPos,bulletW,bulletH,
+      alienPositionsX[colonne][ligne],alienPositionsY[colonne][ligne],ALIEN_TAILLE_X,ALIEN_TAILLE_Y)){
+        aliens[colonne][ligne] = 0;
+        return true;
+      }
+    }
+  }
+  return false;
 }
