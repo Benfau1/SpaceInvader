@@ -1,4 +1,5 @@
 #include "spriteShuttle.h"
+#include <Gamebuino-Meta.h>
 
 // Player sprite
 Image spaceShuttle(PlayerIdlingData);
@@ -100,5 +101,19 @@ void resetBullet(bool *bullets_active , int *bullet_x , int *bullet_y){
         *bullets_active = false;
         *bullet_x = 0;
         *bullet_y = 0;
+}
+
+int getPlayerLocationX(){
+  return move_x;
+}
+int getPlayerLocationY(){
+  return move_y;
+}
+
+int getPlayerSizeX(){
+  return spaceShuttle.width();
+}
+int getPlayerSizeY(){
+  return spaceShuttle.height();
 }
 

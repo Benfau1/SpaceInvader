@@ -40,5 +40,9 @@ void drawHealthLevel(){
       gb.display.print("LOST");
   }
 }
+
+void removeLife(){
+  lives_remaining--;
+}
    
 
