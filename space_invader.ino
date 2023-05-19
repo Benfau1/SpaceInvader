@@ -1,11 +1,5 @@
 #include <Gamebuino-Meta.h>
 
-#pragma region params
-
-//Player params
-
-
-#pragma endregion
 void setup() {
   startGame();
   gb.begin();
@@ -19,10 +13,12 @@ void loop() {
 
 #pragma region spaceInvaders
 void startGame() {
+  initBackground();
   initAliens();
 }
 
 void renderer(){
+  drawBackground();
   drawShuttle();
   drawAliens();
   drawHealthLevel();
