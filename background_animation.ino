@@ -1,5 +1,3 @@
-#include <Gamebuino-Meta.h>
-
 const int STARS_MAX_SPEED = 4;
 const int STARS_MIN_SPEED = 2;
 const int MAX_STARS_ON_SCREEN = 10;
