@@ -33,7 +33,7 @@ float playerBulletPositionY;
 const float playerBulletSpeed = 2.5;
 
 void drawShuttle(){
-    // When moving shuttle should change direction
+  // When moving shuttle should change direction
   if (gb.buttons.repeat(BUTTON_RIGHT, 0) && move_x < gb.display.width() - rightStop )
   {
     move_x++;
@@ -54,8 +54,8 @@ void drawShuttle(){
   }
   // Waiting 30 frames to allow shooting
   if(counterForShooting != 30){
-  counterForShooting++;
- }
+    counterForShooting++;
+  }
    
   gb.display.drawImage(move_x,move_y, spaceShuttle);
   if(isPlayerShooting){

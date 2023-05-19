@@ -41,8 +41,16 @@ void drawHealthLevel(){
   }
 }
 
+int getCurrentLife(){
+  return lives_remaining;
+}
+
 void removeLife(){
   lives_remaining--;
+}
+
+void killPlayer(){
+  lives_remaining = 0;
 }
    
 

@@ -19,8 +19,10 @@ void startGame() {
 
 void renderer(){
   drawBackground();
-  drawShuttle();
-  drawAliens();
   drawHealthLevel();
+  drawAliens();
+  if(getCurrentLife() > 0){
+    drawShuttle();
+  }
 }
 #pragma endregion

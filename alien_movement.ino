@@ -43,9 +43,18 @@ void drawAliens(){
       alienPositionsX[colonne][ligne] += alienSpeedX;
       alienPositionsY[colonne][ligne] += alienSpeedY;
       gb.display.drawImage(alienPositionsX[colonne][ligne], alienPositionsY[colonne][ligne], alienImg);
+
+      if(gb.collide.rectRect(alienPositionsX[colonne][ligne], alienPositionsY[colonne][ligne],ALIEN_TAILLE_X,ALIEN_TAILLE_Y,
+      getPlayerLocationX(), getPlayerLocationY(), getPlayerSizeX(), getPlayerSizeY())){
+        killPlayer();
+      }
     }
   }
+  checkBorderCollision();
+  checkAlienShooting();
+}
 
+void checkBorderCollision(){
   if(alienPositionsX[GRILLE_TAILLE_X-1][GRILLE_TAILLE_Y-1] + ALIEN_TAILLE_X >= gb.display.width()){
     alienSpeedY = 0.2;
     alienSpeedX = -alienSpeedX;
@@ -57,14 +66,24 @@ void drawAliens(){
   else{
     alienSpeedY = 0;
   }
+}
 
+void initAlienShoot(){
+  isAlienShooting = true;
+  alienBulletPositionX = alienPositionsX[rand()%(GRILLE_TAILLE_X-1)][GRILLE_TAILLE_Y-1];
+  alienBulletPositionY = alienPositionsY[rand()%(GRILLE_TAILLE_X-1)][GRILLE_TAILLE_Y-1] + ALIEN_TAILLE_Y;
+
+  gb.display.fillRect(alienBulletPositionX, alienBulletPositionY, alienBulletSizeX, alienBulletSizeY);
+}
+
+void checkAlienShooting(){
   if(shootCurrentTimer < SHOOT_DELAY){
     shootCurrentTimer++;
   }
   else{
     shootCurrentTimer = 0;
     isAlienShooting = false;
-    alienShoot();
+    initAlienShoot();
   }
 
   if(isAlienShooting){
@@ -83,14 +102,6 @@ void drawAliens(){
         removeLife();
     } 
   }
-}
-
-void alienShoot(){
-  isAlienShooting = true;
-  alienBulletPositionX = alienPositionsX[rand()%(GRILLE_TAILLE_X-1)][GRILLE_TAILLE_Y-1];
-  alienBulletPositionY = alienPositionsY[rand()%(GRILLE_TAILLE_X-1)][GRILLE_TAILLE_Y-1] + ALIEN_TAILLE_Y;
-
-  gb.display.fillRect(alienBulletPositionX, alienBulletPositionY, alienBulletSizeX, alienBulletSizeY);
 }
 
 bool checkAlienCollision(int bulletXPos,int bulletYPos,int bulletW,int bulletH){
