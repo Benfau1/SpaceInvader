@@ -11,7 +11,6 @@ void loop() {
   renderer();
 }
 
-#pragma region spaceInvaders
 void startGame() {
   initBackground();
   initAliens();
@@ -25,4 +24,3 @@ void renderer(){
     drawShuttle();
   }
 }
-#pragma endregion

@@ -18,16 +18,9 @@ const int rightStop = 8;
 const int leftStop = 5;
 
 // Bullet properties
-#define NUMBULLETS 10
 int isPlayerShooting = false;
-int bullets_x[NUMBULLETS];
-int bullets_y[NUMBULLETS];
 int bullet_width = 1;
 int bullet_height = 3;
-const float bullets_vy = 2.5;
-bool bullets_active[NUMBULLETS];
-short last_invader_shoot = -1;
-int bulletN = 0;
 float playerBulletPositionX;
 float playerBulletPositionY;
 const float playerBulletSpeed = 2.5;
