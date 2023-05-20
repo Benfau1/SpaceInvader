@@ -37,7 +37,7 @@ void drawShuttle(){
   }
 
   gb.display.setCursorY(0);
-  gb.display.setCursorX(60);
+  gb.display.setCursorX(26);
   gb.display.print(counterForShooting);
   if ( gb.buttons.pressed(BUTTON_A) && counterForShooting == 30)
   {

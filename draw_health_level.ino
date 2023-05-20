@@ -2,6 +2,7 @@
 #include "HeartVoid.h"
 
 int lives_remaining = 3;
+int frameCounter = 0;
 
 // Heart Sprite
 Image heartFull0(HEART_FULL);
@@ -35,14 +36,21 @@ void drawHealthLevel(){
       gb.display.drawImage(0,0, heartVoid0);
       gb.display.drawImage(8,0, heartVoid1);
       gb.display.drawImage(16,0, heartVoid2);
-      gb.display.setCursorY(20);
-      gb.display.setCursorX(60);
-      gb.display.print("LOST");
+      frameCounter++;
+      if(frameCounter == 20){
+        isWin = false;
+        gameState = 1;
+        frameCounter = 0;
+      }
   }
 }
 
 int getCurrentLife(){
   return lives_remaining;
+}
+
+void setCurrentLife(int nbLifes){
+   lives_remaining = nbLifes;
 }
 
 void removeLife(){

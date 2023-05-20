@@ -21,6 +21,8 @@ int alienBulletSpeed = 1;
 Image alienImg(ALIEN_IMAGE);
 #pragma endregion
 
+
+
 void initAliens(){
   for (int ligne = 0; ligne < GRILLE_TAILLE_Y; ligne += 1) {
     for (int colonne = 0; colonne < GRILLE_TAILLE_X; colonne += 1) {
@@ -113,10 +115,41 @@ bool checkAlienCollision(int bulletXPos,int bulletYPos,int bulletW,int bulletH){
 
       if (gb.collide.rectRect(bulletXPos,bulletYPos,bulletW,bulletH,
       alienPositionsX[colonne][ligne],alienPositionsY[colonne][ligne],ALIEN_TAILLE_X,ALIEN_TAILLE_Y)){
+        countScore(ligne);
         aliens[colonne][ligne] = 0;
         return true;
       }
     }
   }
   return false;
+}
+
+void countScore(int ligne){
+  switch (ligne)
+  {
+  case 0:
+    score+=4;
+    break;
+
+  case 1:
+    score+=3;
+    break;
+
+  case 2:
+    score+=2;
+    break;
+
+  case 3:
+    score+=1;
+    break;
+
+  default:
+    break;
+  }
+}
+
+void displayScore(){
+  gb.display.setCursorY(0);
+  gb.display.setCursorX(40);
+  gb.display.printf("Score : %d", score);
 }
