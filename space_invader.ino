@@ -19,7 +19,9 @@ void startGame() {
 void renderer(){
   drawBackground();
   drawHealthLevel();
-  drawAliens();
+  if(!isGameFinished()){
+    drawAliens();
+  }
   if(getCurrentLife() > 0){
     drawShuttle();
   }
