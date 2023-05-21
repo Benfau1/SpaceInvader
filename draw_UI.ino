@@ -38,8 +38,7 @@ void drawHealthLevel(){
       gb.display.drawImage(16,0, heartVoid2);
       frameCounter++;
       if(frameCounter == 20){
-        isWin = false;
-        gameState = 1;
+        endGame();
         frameCounter = 0;
       }
   }
@@ -61,4 +60,31 @@ void killPlayer(){
   lives_remaining = 0;
 }
    
+void countScore(int ligne){
+  switch (ligne)
+  {
+  case 0:
+    addScore(4);
+    break;
+  case 1:
+    addScore(3);
+    break;
 
+  case 2:
+    addScore(2);
+    break;
+
+  case 3:
+    addScore(1);
+    break;
+
+  default:
+    break;
+  }
+}
+
+void displayScore(){
+  gb.display.setCursorY(0);
+  gb.display.setCursorX(40);
+  gb.display.printf("Score : %d", getScore());
+}

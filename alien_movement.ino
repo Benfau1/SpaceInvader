@@ -150,36 +150,6 @@ bool checkAlienCollision(int bulletXPos,int bulletYPos,int bulletW,int bulletH){
   return false;
 }
 
-void countScore(int ligne){
-  switch (ligne)
-  {
-  case 0:
-    score+=4;
-    break;
-
-  case 1:
-    score+=3;
-    break;
-
-  case 2:
-    score+=2;
-    break;
-
-  case 3:
-    score+=1;
-    break;
-
-  default:
-    break;
-  }
-}
-
-void displayScore(){
-  gb.display.setCursorY(0);
-  gb.display.setCursorX(40);
-  gb.display.printf("Score : %d", score);
-}
-
 bool isGameFinished(){
   for (int colonne = 0; colonne < GRILLE_TAILLE_X; colonne += 1) {
     for (int ligne = GRILLE_TAILLE_Y-1; ligne >= 0 ; ligne--) {
@@ -188,5 +158,6 @@ bool isGameFinished(){
       }
     }
   }
+  endGame();
   return true;
 }
