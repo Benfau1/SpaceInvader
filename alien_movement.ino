@@ -72,10 +72,36 @@ void checkBorderCollision(){
 
 void initAlienShoot(){
   isAlienShooting = true;
-  alienBulletPositionX = alienPositionsX[rand()%(GRILLE_TAILLE_X-1)][GRILLE_TAILLE_Y-1];
-  alienBulletPositionY = alienPositionsY[rand()%(GRILLE_TAILLE_X-1)][GRILLE_TAILLE_Y-1] + ALIEN_TAILLE_Y;
+  int lastRowAliens[GRILLE_TAILLE_X];
+  int countActiveColumns = 0;
+  for (int colonne = 0; colonne < GRILLE_TAILLE_X; colonne += 1) {
+    for (int ligne = GRILLE_TAILLE_Y-1; ligne >= 0 ; ligne--) {
+      if (aliens[colonne][ligne] == 1) {
+        lastRowAliens[colonne] = ligne;
+        countActiveColumns++;
+        break;
+      }
+    }
+  }
 
-  gb.display.fillRect(alienBulletPositionX, alienBulletPositionY, alienBulletSizeX, alienBulletSizeY);
+  int rdmColumn = rand()%(GRILLE_TAILLE_X-1);
+  bool rowFound = false;
+
+  for (int ligne = GRILLE_TAILLE_Y-1; ligne >= 0 ; ligne--) {
+    if (aliens[rdmColumn][ligne] == 1) {
+      rowFound = true;
+    }
+  }
+
+  if(rowFound){
+    alienBulletPositionX = alienPositionsX[rdmColumn][lastRowAliens[rdmColumn]];
+    alienBulletPositionY = alienPositionsY[rdmColumn][lastRowAliens[rdmColumn]] + ALIEN_TAILLE_Y;
+    
+    gb.display.fillRect(alienBulletPositionX, alienBulletPositionY, alienBulletSizeX, alienBulletSizeY);
+  }
+  else{
+    initAlienShoot();
+  }
 }
 
 void checkAlienShooting(){
@@ -152,4 +178,15 @@ void displayScore(){
   gb.display.setCursorY(0);
   gb.display.setCursorX(40);
   gb.display.printf("Score : %d", score);
+}
+
+bool isGameFinished(){
+  for (int colonne = 0; colonne < GRILLE_TAILLE_X; colonne += 1) {
+    for (int ligne = GRILLE_TAILLE_Y-1; ligne >= 0 ; ligne--) {
+      if (aliens[colonne][ligne] == 1) {
+        return false;
+      }
+    }
+  }
+  return true;
 }
